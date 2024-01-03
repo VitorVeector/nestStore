@@ -9,7 +9,7 @@ export class createUserDTO {
 
 	@IsNotEmpty({ message: 'O campo e-mail não pode ser vazio.' })
 	@IsEmail(undefined, { message: 'Informe um email válido.' })
-	@EmailIsUniqual({message: "Usuário existente."})
+	@EmailIsUniqual({ message: "Usuário existente." })
 	email: string;
 
 	@MinLength(6)

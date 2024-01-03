@@ -19,6 +19,7 @@ export const EmailIsUniqual = (optionValidation: ValidationOptions) => {
             target: obj.constructor,
             propertyName: property,
             options: optionValidation,
+            constraints: [],
             validator: EmailIsUniqualValidator
         })
     }
