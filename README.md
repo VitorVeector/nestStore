@@ -94,5 +94,35 @@ O Nest possui outros decorators para capturar dados a partir de uma requisição
 
 Se quiséssemos capturar apenas a lista de produtos, poderíamos fazer **@Body('produtos')** e o Nest nos daria apenas os produtos ignorando o restante dos valores no objeto. Temos outros dois decoratos que se comportam de forma parecida com o @Body. Eles são o @Query e o @Param, o primeiro lida com query parameters e o segundo com parâmetros dinâmicos na URL. Veremos mais sobre estes outros durante nossos estudos.
 
-## Trabalhando com Módulos 
+# Class Validator
 
+Utilizaremos um biblioteca de validação para o Nest.js
+[Docs Class Validator](https://github.com/typestack/class-validator) 
+
+## Entidade
+
+Devemos definir as propriedades que serão passadas no momento do post, para que haja conformidade nos dados passados como Post. Neste caso, podemos usar o usuário como exemplo recebendo suas propriedades corretas, através de um interface.
+
+### Listagem
+
+Podemos definir um DTO para a requisição GET, deixando nossos dados mais seguros e escondendo senha e e-mail de User
+
+```ts
+  @Get()
+  async getUsers(){
+    const users = await this.userRepository.listUsers()
+    const setUsers = users.map(user => new ListUserDTO(
+      user.id,
+      user.name
+  ))
+```
+
+ListUserDTO é uma classe construtora, que segue alguns parâmetros: 
+```ts
+  export class ListUserDTO {
+    constructor (
+        readonly id: string,
+        readonly name: string
+    ){}
+}
+```
