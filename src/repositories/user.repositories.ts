@@ -21,7 +21,7 @@ export class UserRepository{
 
     async updateUser(id: string, @Body() newData: Partial<TypeUserRepository> ){
         const userExists = this.users.find(user => user.id === id)
-        if(userExists){
+        if(!userExists){
             throw new Error('Usuário inexistente!')
         }
 
@@ -33,5 +33,16 @@ export class UserRepository{
         })
 
         return userExists
+    }
+
+    async deleteUser(id: string){
+        const index = this.users.findIndex(user => user.id === id);
+
+        if(index === -1){
+            throw new Error('Usuário inexistente!');
+        }
+
+        const deletedUser = this.users.splice(index, 1)[0];
+        return deletedUser;
     }
 }
